@@ -1,5 +1,6 @@
 // only 3 weights available in this
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap&Sen&display=swap');
+
 
 
 body {
@@ -11,16 +12,25 @@ body {
 	font-weight: 500;
 }
 
+.sen-serif {font-family: 'Sen', sans-serif;}
+
 label{
 	display: inline-block;
     margin-bottom: .5rem;
     font-size: 14px;
 }
 
-.btn {
-    font-weight: 500;
+.container {
+	max-width: 970px !important;
 }
 
+.btn {
+	font-weight: 500;
+}
+
+button:focus {
+    box-shadow: 0 0 0 !important;
+}
 .modal-header {
 	padding: 15px 15px !important;
 	.modal-title{
@@ -114,8 +124,11 @@ a:hover {
 .text-23 {font-size: 23px;}
 
 header {
-    background: #fff;
+	background: #fff;
     border-bottom: solid 1px #e5e5e5;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .form-wrapper {
@@ -140,3 +153,53 @@ header {
 	}
 }
 
+.card {
+	border-radius: 0;
+}
+.post-content {
+	svg {
+		width: 21px;
+		height: 23px;
+	}
+	margin-bottom: 30px; 
+	.comment{
+	position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border: none;
+    border-top: solid 1px #e5e5e5;
+    min-height: 48px;
+    border-radius: 0;
+    padding: 6px 15px;
+    font-size: 13px;
+    font-weight: 500;
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
+.follow-sm {
+    padding: 1px 10px;
+    font-size: 13px;
+    border-radius: 3px;
+}
+
+.sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.post-content svg:first-child {
+    fill: #ff3131;
+}
+
+button.nav-link {
+    background: transparent;
+    border: none;
+	font-weight: 500;
+	&:focus{
+		outline: none;
+	}
+}

@@ -6,6 +6,7 @@ import Login from "./components/screens/Login";
 import Register from "./components/screens/Register";
 import Menu from "./components/screens/Menu";
 import Home from "./components/screens/Home";
+import Profile from './components/screens/Profile'
 import "./style/style.scss";
 
 
@@ -17,7 +18,6 @@ const Routing = () => {
 
   useEffect(() => {
     if (user) {
-      history.push("/");
       dispatch({ type: "USER", payload: user });
     } else {
       history.push("/signin");
@@ -26,17 +26,20 @@ const Routing = () => {
 
  
   return(
-    <switch>
+    <Switch>
     <Route path="/" exact>
       <Home />
     </Route>
-    <Route path="/signin" exact>
+    <Route path="/signin">
       <Login />
     </Route>
-    <Route path="/signup" exact>
+    <Route path="/signup">
       <Register />
     </Route>
-  </switch>
+    <Route path="/profile">
+      <Profile />
+    </Route>
+  </Switch>
   )
 }
 

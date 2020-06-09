@@ -5,6 +5,7 @@ import axios from "axios";
 import { FiImage } from "react-icons/fi";
 
 function PostModal(props) {
+
   const handleClose = () => {
     props.closeModal(false);
   };
@@ -16,6 +17,7 @@ function PostModal(props) {
   const [isError, setError] = useState('')
 
   async function uploadImage(e) {
+    setProcessing(true)
     const data = new FormData();
     data.append("file", photo);
     data.append("upload_preset", "instagram");
@@ -24,6 +26,7 @@ function PostModal(props) {
       `https://api.cloudinary.com/v1_1/amirsohel/image/upload`,data)
       .catch(error => {
         setError('Problem with image')
+        setProcessing(false)
        })
       if(imageUrl)
       setImageUrl(imageUrl.data.url);
@@ -55,8 +58,8 @@ function PostModal(props) {
     }
     setProcessing(false)
     setError(false)
-    handleClose()
-    console.log(res.data);
+    window.location.reload()
+    
   }
 
   return (

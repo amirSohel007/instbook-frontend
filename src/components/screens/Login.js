@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <Layout>
       <div className="row justify-content-center">
-        <div className="col-sm-4 pt-5">
+        <div className="col-sm-5 pt-5">
           <img className="mobile" src="../../img/insta-snap.png" />
         </div>
 
