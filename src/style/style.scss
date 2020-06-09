@@ -1,0 +1,142 @@
+// only 3 weights available in this
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+
+
+body {
+	margin: 0;
+	font-family: 'Quicksand', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: #f5f5f5 !important;
+	font-weight: 500;
+}
+
+label{
+	display: inline-block;
+    margin-bottom: .5rem;
+    font-size: 14px;
+}
+
+.btn {
+    font-weight: 500;
+}
+
+.modal-header {
+	padding: 15px 15px !important;
+	.modal-title{
+	font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+	}
+}
+
+.user-header{
+	h5{
+		font-size: 14px;
+		font-weight: 500;
+	}
+	img{
+		width: 30px;
+		border: solid 1px #e5e5e5;
+		border-radius: 100%;
+		margin-right: 10px;
+	}
+}
+
+.message-body {
+    width: 100%;
+    resize: none;
+    margin-top: 10px;
+    border-radius: 0;
+	transition: all 0.3s;
+	border: none;
+	font-weight: 500;
+	min-height: 130px;
+	&:focus {
+		border: none;
+		outline: none;
+	}
+}
+
+
+.navbar-nav .nav-link {
+    color: #444;
+    padding: 3px 10px 6px 18px !important;
+    font-size: 15px;
+}
+
+
+
+.btn-primary {
+	background: #0095f6;
+	border-color: #0095f6;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+	.form-control {
+		font-size: 14px;
+		font-weight: 500;
+	&:focus, &:active {
+		outline: none;
+		box-shadow: 0 0 0 !important;
+	}
+}
+
+.mobile {
+	width: 310px;
+}
+
+.alert {
+	padding: 5px 1.25rem;
+}
+
+
+
+.border-radius-4{
+	border-radius: 4px;
+}
+
+
+.text-11 {font-size: 11px;}
+.text-12 {font-size: 12px;}
+.text-13 {font-size: 13px;}
+.text-15 {font-size: 15px;}
+.text-17 {font-size: 17px;}
+.text-18 {font-size: 18px;}
+.text-19 {font-size: 19px;}
+.text-20 {font-size: 20px;}
+.text-21 {font-size: 21px;}
+.text-22 {font-size: 22;}
+.text-23 {font-size: 23px;}
+
+header {
+    background: #fff;
+    border-bottom: solid 1px #e5e5e5;
+}
+
+.form-wrapper {
+		border-radius: 5px !important;
+		border: solid 1px #eaeaea;
+}
+
+
+.image-uploader {
+    color: #827f7f;
+    margin-bottom: 0;
+    background: #e4e4e4;
+    width: 100%;
+    text-align: center;
+    padding: 10px 10px;
+    border-radius: 3px;
+    border: solid 1px #e4e4e4;
+	cursor: pointer;
+	svg {
+		height: 18px;
+		width: 36px;
+	}
+}
+
