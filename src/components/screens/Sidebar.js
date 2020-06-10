@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {UserContext} from '../../App'
+import {Loader, headers} from '../../method/common'
 import axios from 'axios'
 
 const Sidebar = () => {
@@ -7,19 +8,14 @@ const {state, dispatch} = useContext(UserContext)
 const [users, setUsers] = useState([])
 
   const getUsers = async () => {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    };
-    const users = await axios.get("http://localhost:5000/api/allusers", {
-      headers,
-    });
+    const users = await axios.get("http://localhost:5000/api/allusers", {headers,});
     setUsers(users.data);
   };
-  
-    useEffect(() =>{
-      getUsers()
-    },[])
+
+
+  useEffect(() => getUsers(),[])
+
+
 
     return (
       <div className="sidebar">
@@ -35,7 +31,7 @@ const [users, setUsers] = useState([])
             Suggestion For You
           </h3>
           <ul className="p-0 m-0 list-unstyled">
-            {users && users.map(user => {
+            {users && users.length > 0 ?  users.map(user => {
               return(
             <li className="mb-3" key={user._id}>
               <div className="follow-suggestion d-flex">
@@ -56,7 +52,7 @@ const [users, setUsers] = useState([])
               </div>
             </li>
               )
-            })}
+            }) : Loader.section_loading}
           </ul>
         </div>
       </div>

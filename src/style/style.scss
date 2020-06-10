@@ -152,15 +152,43 @@ header {
 		width: 36px;
 	}
 }
+.fa-heart.fill {
+	color: #f52323 !important;
+	animation:fa-beat 5s linear 1;
+}
+
+@keyframes fa-beat {
+	0% {
+	  transform:scale(1);
+	}
+	5% {
+	  transform:scale(1.25);
+	}
+	20% {
+	  transform:scale(1);
+	}
+	30% {
+	  transform:scale(1);
+	}
+	35% {
+	  transform:scale(1.25);
+	}
+	50% {
+	  transform:scale(1);
+	}
+	55% {
+	  transform:scale(1.25);
+	}
+	70% {
+	  transform:scale(1);
+	}
+  }
 
 .card {
 	border-radius: 0;
 }
 .post-content {
-	svg {
-		width: 21px;
-		height: 23px;
-	}
+	.fa {cursor: pointer;}
 	margin-bottom: 30px; 
 	.comment{
 	position: absolute;
@@ -191,10 +219,6 @@ header {
     top: 100px;
 }
 
-.post-content svg:first-child {
-    fill: #ff3131;
-}
-
 button.nav-link {
     background: transparent;
     border: none;
@@ -203,3 +227,33 @@ button.nav-link {
 		outline: none;
 	}
 }
+
+.user-avtar {
+	border-radius: 100%;
+    overflow: hidden;
+    height: 127px;
+    border: solid 1px #d0d0d0;
+    width: 127px;
+}
+
+.spinner-border-sm {border-width: 2px; border-color: #adadad;}
+.spinner-border {border-right-color: transparent !important;}
+
+// TWITTER HEART
+.heart {
+	width: 100px;
+    height: 80px;
+    background: url('https://cssanimation.rocks/images/posts/steps/heart.png') no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+    position: relative;
+    transform: translate(-24px, -20px);
+	
+	&.is-active {
+	  transition-duration: 1s;
+	  background-position: -2800px 0;
+	}
+  }
+  

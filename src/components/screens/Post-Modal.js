@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import {headers} from '../../method/common'
 import { FiImage } from "react-icons/fi";
 
 function PostModal(props) {
@@ -25,7 +26,7 @@ function PostModal(props) {
     let imageUrl = await axios.post(
       `https://api.cloudinary.com/v1_1/amirsohel/image/upload`,data)
       .catch(error => {
-        setError('Problem with image')
+        setError('Upload a image')
         setProcessing(false)
        })
       if(imageUrl)
@@ -42,13 +43,8 @@ function PostModal(props) {
 
   async function createPost() {
     setProcessing(true)
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization:
-        `Bearer ${localStorage.getItem('authToken')}`,
-    };
     const post = {body, imageUrl };
-    let res = await axios.post("http://localhost:5000/api/addpost", post, {headers: headers})
+    let res = await axios.post("http://localhost:5000/api/addpost", post, {headers})
     .catch(error => {
       console.log(error)
     })
@@ -92,7 +88,7 @@ function PostModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={uploadImage}>
-          {processing && processing ? 'Publishing...' : 'Submit Post'}
+          {processing && processing ? 'Processing...' : 'Submit Post'}
         </Button>
       </Modal.Footer>
     </Modal>

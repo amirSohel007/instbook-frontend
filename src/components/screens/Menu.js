@@ -48,6 +48,14 @@ const Menu = () => {
 
             <li className="nav-item user-menu">
               <AuthorizedLink>
+                <Link className="nav-link" to="/">
+                  Feeds
+                </Link>
+              </AuthorizedLink>
+            </li>
+
+            <li className="nav-item user-menu">
+              <AuthorizedLink>
                 <button className="nav-link" onClick={openModal}>
                   Add Post
                   </button>
