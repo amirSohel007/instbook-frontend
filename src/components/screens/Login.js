@@ -29,9 +29,10 @@ const Login = () => {
       localStorage.setItem("authToken", token);
       const user = { email, name, _id };
       localStorage.setItem("userInfo", JSON.stringify(user));
+      history.push("/");
       dispatch({type:'USER', payload:user})
       setProcessing(false);
-      history.push("/");
+
     }
   }
 

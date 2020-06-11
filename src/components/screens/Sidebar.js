@@ -13,7 +13,9 @@ const [users, setUsers] = useState([])
   };
 
 
-  useEffect(() => getUsers(),[])
+  useEffect(() => {
+    getUsers()
+  },[])
 
 
 
