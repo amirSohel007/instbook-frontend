@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import {UserContext} from '../../App'
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -7,16 +6,16 @@ import {headers} from '../../method/common'
 import { FiImage } from "react-icons/fi";
 
 function PostModal(props) {
-  const {state, dispatch} = useContext(UserContext)
+
+  const handleClose = () => {
+    props.closeModal(false);
+  };
+
   const [body, setBody] = useState("");
   const [processing, setProcessing] = useState(false);
   const [photo, setPhoto] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isError, setError] = useState('')
-
-  const handleClose = () => {
-    props.closeModal(false);
-  };
 
   async function uploadImage(e) {
     setProcessing(true)
@@ -67,7 +66,7 @@ function PostModal(props) {
       <Modal.Body>
         <div className="user-header d-flex align-items-center">
           <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&_nc_sid=7206a8&_nc_ohc=1HgK80DWbWcAX_cW4aV&_nc_ht=scontent.fudr1-1.fna&oh=a9943d102e4ef3ac606dd30d9ba09087&oe=5F03D6C1"/>
-        <h5>{state && state.name}</h5>
+          <h5>Amir Sohel</h5>
         </div>
         <textarea
           type="text"

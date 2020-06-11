@@ -32,7 +32,6 @@ const Login = () => {
       dispatch({type:'USER', payload:user})
       setProcessing(false);
       history.push("/");
-
     }
   }
 

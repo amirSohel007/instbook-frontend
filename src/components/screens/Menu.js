@@ -18,6 +18,7 @@ const Menu = () => {
     history.push('/signin')
     localStorage.clear()
     dispatch({type:'CLEAR'})
+   
   }
 
   return (
