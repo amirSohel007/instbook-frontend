@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import {Link} from 'react-router-dom'
 import Layout from "./Layout";
 import Sidebar from './Sidebar'
 import {Loader} from '../../method/common'
@@ -10,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
   const {state, dispatch} = useContext(UserContext)
-	const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   const like = async (id) => {
     const likedPost = await likePost(id);
@@ -64,7 +65,7 @@ function Home() {
             <div className="user-header border-bottom d-flex align-items-center p-2">
               <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&_nc_sid=7206a8&_nc_ohc=1HgK80DWbWcAX_cW4aV&_nc_ht=scontent.fudr1-1.fna&oh=a9943d102e4ef3ac606dd30d9ba09087&oe=5F03D6C1" />
               <h5 className="mb-0">
-                {post.postedBy.name ? post.postedBy.name : "--"}
+              <Link className="text-body" to={`/user/${post.postedBy._id}`}>{post.postedBy.name ? post.postedBy.name : "--"}</Link>
               </h5>
               <div className="action">
               {post.postedBy._id == state._id ? <AiOutlineDelete onClick={(e) => deleteItem(post._id)}/> :''} 

@@ -63,7 +63,7 @@ const Menu = () => {
             </li>
             <li className="nav-item user-menu">
               <AuthorizedLink>
-                <Link className="nav-link" to="/profile">
+                <Link className="nav-link" to={`/user/${state && state._id}`}>
                   Profile
                 </Link>
               </AuthorizedLink>

@@ -36,7 +36,7 @@ const Routing = () => {
     <Route path="/signup">
       <Register />
     </Route>
-    <Route path="/profile">
+    <Route path="/user/:username">
       <Profile />
     </Route>
   </Switch>

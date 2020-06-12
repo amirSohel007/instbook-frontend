@@ -3,7 +3,7 @@ import {UserContext} from '../../App'
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {headers} from '../../method/common'
+import {createPost} from '../../API-Calls/Data-provider'
 import { FiImage } from "react-icons/fi";
 
 function PostModal(props) {
@@ -36,27 +36,22 @@ function PostModal(props) {
 
   useEffect(() => {
     if (imageUrl) {
-    createPost();
+      submitPost();
     }
     //run this function when imageUrl value get changed
   }, [imageUrl]);
 
 
-  async function createPost() {
-    setProcessing(true)
-    const post = {body, imageUrl };
-    let res = await axios.post("http://localhost:5000/api/addpost", post, {headers})
-    .catch(error => {
-      console.log(error)
-    })
-    if(res.data.error){
-      setError(res.data.error)
-      setProcessing(false)
+  async function submitPost() {
+    setProcessing(true);
+    const newPost = await createPost(body, imageUrl);
+    if (newPost.error) {
+      setError(newPost.error);
+      setProcessing(false);
     }
-    setProcessing(false)
-    setError(false)
-    window.location.reload()
-    
+    setProcessing(false);
+    setError(false);
+    window.location.reload();
   }
 
   return (

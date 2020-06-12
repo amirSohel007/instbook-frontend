@@ -33,6 +33,16 @@ export const suggessionUsers = async () => {
   return users.data
 };
 
+//User profile 
+export const getProfile = async (userId) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const user = await axios.get(`http://localhost:5000/api/user/${userId}`, {headers})
+  return user.data
+}
+
 //get all feeds posts
 export const getPosts = async () => {
   const headers = {
@@ -43,10 +53,17 @@ export const getPosts = async () => {
   return res.data;
 };
 
-//get my posts
-export const getMyPosts = async () => {
-  const response = await axios.get('http://localhost:5000/api/mypost', {headers})
-   return response.data
+export const createPost = async (body, imageUrl) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const post = {body, imageUrl };
+  let res = await axios.post("http://localhost:5000/api/addpost", post, {headers})
+  .catch(error => {
+    console.log(error)
+  })
+  return res.data
 }
 
 //Delete post
