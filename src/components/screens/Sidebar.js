@@ -1,23 +1,20 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {UserContext} from '../../App'
-import {Loader, headers} from '../../method/common'
-import axios from 'axios'
+import {Loader} from '../../method/common'
+import {suggessionUsers} from '../../API-Calls/Data-provider'
 
 const Sidebar = () => {
 const {state, dispatch} = useContext(UserContext)
 const [users, setUsers] = useState([])
 
-  const getUsers = async () => {
-    const users = await axios.get("http://localhost:5000/api/allusers", {headers,});
-    setUsers(users.data);
+  const getSuggestUser = async () => {
+    const data = await suggessionUsers();
+    setUsers(data);
   };
 
-
   useEffect(() => {
-    getUsers()
-  },[])
-
-
+    getSuggestUser();
+  }, []);
 
     return (
       <div className="sidebar">

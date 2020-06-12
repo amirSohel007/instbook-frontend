@@ -37,8 +37,11 @@ button:focus {
 	font-size: 16px;
     font-weight: 500;
     width: 100%;
-    text-align: center;
+	text-align: center;
 	}
+}
+.close:focus{
+		outline: none !important;
 }
 
 .user-header{
@@ -256,4 +259,27 @@ button.nav-link {
 	  background-position: -2800px 0;
 	}
   }
-  
+
+  .action {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.action-wrapper {
+    background: white;
+    width: 120px;
+    position: absolute;
+    right: 0;
+}
+
+.Toastify__toast--success {
+    background: #1a2838 !important;
+    border-radius: 3px !important;
+}
+
+.Toastify__toast-body {
+	text-align: center  !important;
+    color: #44d29e !important;
+}
+

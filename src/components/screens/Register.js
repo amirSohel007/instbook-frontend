@@ -1,33 +1,27 @@
 import React, { useState } from "react";
 import Layout from "./Layout";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { register } from "../../API-Calls/Data-provider";
 
 const Register = () => {
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
   const [isRegister, registerStatus] = useState(false);
   const [isError, setError] = useState("");
-  const apiURL = process.env.REACT_APP_API_URL;
 
-  async function formSubmit (e) {
+  async function formSubmit(e) {
     setProcessing(true);
-    e.preventDefault();
-    const data = { name, email, password };
-    let res = await axios.post(`http://localhost:5000/api/signup`, data);
-
-    if (res.data.error) {
-      setError(res.data.error);
+    const userRegister = await register(e, name, email, password);
+    if (userRegister.error) {
+      setError(userRegister.error);
       setProcessing(false);
     } else {
       registerStatus(true);
       setProcessing(false);
     }
-  };
+  }
 
   return (
     <Layout>

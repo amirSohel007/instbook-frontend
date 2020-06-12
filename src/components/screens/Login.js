@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {UserContext} from '../../App'
-import axios from "axios";
+import {login} from '../../API-Calls/Data-provider'
 
 const Login = () => {
   const {state, dispatch} = useContext(UserContext) 
@@ -13,23 +13,18 @@ const Login = () => {
   const [isError, setError] = useState("");
   const history = useHistory();
 
-  const apiURL = process.env.REACT_APP_API_URL;
-
   async function postSignIn(e) {
-    e.preventDefault();
     setProcessing(true);
-    const data = { email, password };
-    let res = await axios.post(`http://localhost:5000/api/signin`, data);
-
-    if (res.data.error) {
-      setError(res.data.error);
+    const userLogin = await login(e, email, password);
+    if (userLogin.error) {
+      setError(userLogin.error);
       setProcessing(false);
     } else {
-      const { token, email, name, _id } = res.data;
+      const { token, email, name, _id } = userLogin;
       localStorage.setItem("authToken", token);
       const user = { email, name, _id };
       localStorage.setItem("userInfo", JSON.stringify(user));
-      dispatch({type:'USER', payload:user})
+      dispatch({ type: "USER", payload: user });
       setProcessing(false);
       history.push("/");
     }

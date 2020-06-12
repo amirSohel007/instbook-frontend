@@ -1,74 +1,56 @@
 import React, { useEffect, useState, useContext } from "react";
 import Layout from "./Layout";
 import Sidebar from './Sidebar'
-import {headers, Loader} from '../../method/common'
+import {Loader} from '../../method/common'
 import {UserContext} from '../../App'
-import axios from "axios";
+import { AiOutlineDelete } from "react-icons/ai";
+import { ToastContainer } from 'react-toastify';
+import {deletePost, commentPost, getPosts, likePost, unlikePost} from '../../API-Calls/Data-provider'
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
   const {state, dispatch} = useContext(UserContext)
 	const [posts, setPosts] = useState([]);
-  const apiURL = process.env.REACT_APP_API_URL;
 
-  const unlike = async (id) =>{
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    };
-    
-    const unlike = await axios.put('http://localhost:5000/api/like', {postId:id}, {headers})
-    let updatedPost = posts.map(item => {
-      if(item._id === unlike.data._id) return unlike.data
-      else return item
-      })
-    setPosts(updatedPost)
- }
- 
-  const like = async (id) =>{
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    };
-    
-    const like = await axios.put('http://localhost:5000/api/unlike', {postId:id}, {headers})
-    let updatedPost = posts.map(item => {
-      if(item._id === like.data._id) return like.data
-      else return item
-    })
-    setPosts(updatedPost)
- }
-
-	const getPosts = async () => {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    };
-    
-		let res = await axios.get(`http://localhost:5000/api/posts`, {headers});
-    setPosts(res.data);
+  const like = async (id) => {
+    const likedPost = await likePost(id);
+    let updatedPost = posts.map((item) =>
+      item._id === likedPost._id ? likedPost : item
+    );
+    setPosts(updatedPost);
   };
-  
-  const commentPost = async (e, id) => {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    };
-    
-    e.preventDefault()
-    const data = {text:e.target[0].value, postId:id}
-    e.target[0].value = ''
-    const comment = await axios.put('http://localhost:5000/api/comment', data, {headers})
-    document.querySelectorAll('.comment').value = ''
-    let updatedPost = posts.map(item => {
-      if(item._id === comment.data._id) return comment.data 
-      else return item
-    })
-    setPosts(updatedPost)
-  }
 
+  const unlike = async (id) => {
+    const unlikeItem = await unlikePost(id);
+    let unlikedPost = posts.map((item) =>
+      item._id === unlikeItem._id ? unlikeItem : item
+    );
+    setPosts(unlikedPost);
+  };
+
+  const getFeeds = async () => {
+    const getFeeds = await getPosts();
+    setPosts(getFeeds);
+  };
+
+  const commentOnPost = async (e, id) => {
+    const commentedPost = await commentPost(e, id);
+    let updatedPost = posts.map((item) =>
+      item._id === commentedPost._id ? commentedPost : item
+    );
+    setPosts(updatedPost);
+  };
+
+  const deleteItem = async (postId) => {
+    const deletedPost = await deletePost(postId);
+    const filteredItem = posts.filter(
+      (item) => item._id != deletedPost.removePost._id
+    );
+    setPosts(filteredItem);
+  };
 
 	useEffect(() => {
-		getPosts();
+		getFeeds();
 	}, []);
 
 	return (
@@ -84,15 +66,18 @@ function Home() {
               <h5 className="mb-0">
                 {post.postedBy.name ? post.postedBy.name : "--"}
               </h5>
-            </div>
+              <div className="action">
+              {post.postedBy._id == state._id ? <AiOutlineDelete onClick={(e) => deleteItem(post._id)}/> :''} 
+              </div>
+              </div>
             <div className="post-image">
               <img className="w-100" src={post.imageUrl} />
             </div>
             <div className="post-content text-left p-3">
               {post.likes && state._id && post.likes.includes(state._id) ? 
-                <div className="heart like is-active"  onClick={() => like(post._id)}></div>
+                <div className="heart like is-active"  onClick={() => unlike(post._id)}></div>
                :
-                <div className="heart unlike" onClick={() => unlike(post._id)}></div>
+                <div className="heart unlike" onClick={() => like(post._id)}></div>
               }
               <p className="mb-0 text-15">{post.likes.length} likes</p>
               <p className="sen-serif text-13 mb-1">{post.body}</p>
@@ -104,13 +89,13 @@ function Home() {
                   )
                 })}
               </div>
-              <form onSubmit={(e) => commentPost(e, post._id)}>
+              <form onSubmit={(e) => commentOnPost(e, post._id)}>
                 <input type="text" className="comment"  placeholder="Write comment..." />
               </form>
             </div>
           </div>
         );
-      }):Loader.section_loading}
+      }): Loader.section_loading }
           </div>
 
           <div className="col-sm-4 offset-1">
@@ -118,6 +103,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={2000}/>
     </Layout>
   );
 }
