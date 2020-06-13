@@ -28,6 +28,10 @@ const Menu = () => {
           <Link className="navbar-brand" to={state ? "/" : "/signin"}>
            InstaBook
           </Link>
+
+          <div className="search">
+            <input type="text" placeholder="search.."/>
+          </div>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <UnauthorizedLink className="nav-link" to="/signin">

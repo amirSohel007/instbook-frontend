@@ -2,6 +2,9 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const apiUrl = process.env.REACT_APP_API_URL 
+// const apiUrl = 'http://localhost:5000'
+
 const headers = {
   "Content-Type": "application/json",
   "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
@@ -11,7 +14,7 @@ const headers = {
 export const login = async (e, email, password) => {
   e.preventDefault();
   const data = { email, password };
-  let res = await axios.post(`http://localhost:5000/api/signin`, data);
+  let res = await axios.post(`${apiUrl}signin`, data);
   return res.data
 }
 
@@ -19,7 +22,7 @@ export const login = async (e, email, password) => {
 export const register = async (e, name, email, password) => {
   e.preventDefault();
   const data = { name, email, password };
-  let res = await axios.post(`http://localhost:5000/api/signup`, data);
+  let res = await axios.post(`${apiUrl}signup`, data);
   return res.data;
 };
 
@@ -29,7 +32,7 @@ export const suggessionUsers = async () => {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
   };
-  const users = await axios.get("http://localhost:5000/api/allusers", {headers})
+  const users = await axios.get(`${apiUrl}allusers`, {headers})
   return users.data
 };
 
@@ -39,7 +42,7 @@ export const getProfile = async (userId) => {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
   };
-  const user = await axios.get(`http://localhost:5000/api/user/${userId}`, {headers})
+  const user = await axios.get(`${apiUrl}user/${userId}`, {headers})
   return user.data
 }
 
@@ -49,7 +52,7 @@ export const getPosts = async () => {
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
-  let res = await axios.get(`http://localhost:5000/api/posts`, { headers });
+  let res = await axios.get(`${apiUrl}posts`, { headers });
   return res.data;
 };
 
@@ -59,7 +62,7 @@ export const createPost = async (body, imageUrl) => {
     "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
   };
   const post = {body, imageUrl };
-  let res = await axios.post("http://localhost:5000/api/addpost", post, {headers})
+  let res = await axios.post(`${apiUrl}addpost`, post, {headers})
   .catch(error => {
     console.log(error)
   })
@@ -72,7 +75,7 @@ export const deletePost = async (postId) => {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
   };
-  const deleteItem = await axios.delete(`http://localhost:5000/api/delete/${postId}`, {headers})
+  const deleteItem = await axios.delete(`${apiUrl}delete/${postId}`, {headers})
   if(deleteItem.data.status){
     toast.success("Post has been deleted !", {position: toast.POSITION.BOTTOM_CENTER});
     return deleteItem.data
@@ -90,7 +93,7 @@ export const commentPost = async (e, id) => {
   e.preventDefault()
   const data = {text:e.target[0].value, postId:id}
   e.target[0].value = ''
-  const comment = await axios.put('http://localhost:5000/api/comment', data, {headers})
+  const comment = await axios.put(`${apiUrl}comment`, data, {headers})
   document.querySelectorAll('.comment').value = ''
   return comment.data
 }
@@ -101,7 +104,7 @@ export const likePost = async (id) =>{
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
-  const likedPost = await axios.put('http://localhost:5000/api/like', {postId:id}, {headers})
+  const likedPost = await axios.put(`${apiUrl}like`, {postId:id}, {headers})
   return likedPost.data
 }
 
@@ -111,7 +114,7 @@ export const unlikePost= async (id) =>{
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
-const unlikedPost = await axios.put('http://localhost:5000/api/unlike', {postId:id}, {headers})
+const unlikedPost = await axios.put(`${apiUrl}unlike`, {postId:id}, {headers})
  return unlikedPost.data
 }
 
@@ -121,7 +124,7 @@ export const followUser = async (id) => {
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
   const data = {followId:id}
-    const check = await axios.put('http://localhost:5000/api/follow', data, {headers})
+    const check = await axios.put(`${apiUrl}follow`, data, {headers})
     return check.data
 }
 
@@ -131,6 +134,6 @@ export const unfollowUser = async (id) => {
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
    const data = {unfollowId:id}
-    const check = await axios.put('http://localhost:5000/api/unfollow', data, {headers})
+    const check = await axios.put(`${apiUrl}unfollow`, data, {headers})
     return check.data
 }

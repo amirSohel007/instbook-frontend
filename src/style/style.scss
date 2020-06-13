@@ -157,6 +157,7 @@ header {
 .form-wrapper {
 		border-radius: 5px !important;
 		border: solid 1px #eaeaea;
+		max-width: 330px;
 }
 
 
@@ -316,4 +317,19 @@ button.nav-link {
     position: absolute;
     top: 0;
     right: 10px;
+}
+
+.search {
+	margin-left: 15%;
+    width: 230px;
+	input {
+		background: whitesmoke;
+		border: solid 1px #d4cfcf;
+		width: 100%;
+		padding: 5px 10px;
+		font-size: 14px;
+		&:focus, &:active {
+			outline: none;
+		}
+	}
 }

@@ -37,7 +37,7 @@ const Login = () => {
           <img className="mobile" src="../../img/insta-snap.png" />
         </div>
 
-        <div className="col-sm-4">
+        <div className="col-sm-5">
           <div className="bg-white form-wrapper mt-5 p-4 border-radius-4">
             <form>
               <div className="form-group text-center">

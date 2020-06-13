@@ -1,26 +1,36 @@
 import React, { useState } from "react";
 import Layout from "./Layout";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory} from "react-router-dom";
 import { register } from "../../API-Calls/Data-provider";
 
 const Register = () => {
+  let history = useHistory()
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [isRegister, registerStatus] = useState(false);
   const [isError, setError] = useState("");
+  const emailPattern = /^([\-\_\.0-9a-zA-Z]+)@([\-\_\.0-9a-zA-Z]+)\.([a-z]){2,7}$/
 
   async function formSubmit(e) {
     setProcessing(true);
-    const userRegister = await register(e, name, email, password);
-    if (userRegister.error) {
-      setError(userRegister.error);
-      setProcessing(false);
-    } else {
-      registerStatus(true);
+    if(emailPattern.test(email)){
+      const userRegister = await register(e, name, email, password);
+      if (userRegister.error) {
+        setError(userRegister.error);
+        setProcessing(false);
+      } else {
+        setProcessing(false);
+        history.push('/signin')
+      }
+    }
+    else {
+      setError('Invaid email address');
       setProcessing(false);
     }
+
+
+  
   }
 
   return (
@@ -29,7 +39,7 @@ const Register = () => {
         <div className="col-sm-5 pt-5">
           <img className="mobile" src="../../img/insta-snap.png" />
         </div>
-        <div className="col-sm-4">
+        <div className="col-sm-5">
           <div className="bg-white form-wrapper mt-5 p-4 border-radius-4">
             <form>
               <div className="form-group text-center">
@@ -82,17 +92,6 @@ const Register = () => {
                   Login
                 </NavLink>
               </p>
-              {isRegister && (
-                <div
-                  className="alert alert-success mt-3 text-12 text-center"
-                  role="alert"
-                >
-                  Your account is created. Please{" "}
-                  <NavLink className="primary-text" to="/signin">
-                    Login
-                  </NavLink>
-                </div>
-              )}
               {isError && (
                 <div
                   className="alert alert-danger mt-3 text-12 text-center"
