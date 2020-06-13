@@ -41,7 +41,7 @@ const Login = () => {
           <div className="bg-white form-wrapper mt-5 p-4 border-radius-4">
             <form>
               <div className="form-group text-center">
-                <img className="w-50" src="../../img/logo.png" alt="logo" />
+              <h5 className="logo">InstaBook</h5>
               </div>
               <div className="form-group">
                 <label htmlFor="">Email/Id</label>

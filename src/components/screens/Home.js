@@ -59,7 +59,7 @@ function Home() {
       <div className="main-container pb-5 pt-5">
         <div className="row">
           <div className="col-sm-7 text-center">
-       {posts && posts.length > 0 ? posts.map(post =>{
+         {posts && posts.length > 0 ? posts.map(post =>{
         return (
           <div className="card mb-4" key={post._id}>
             <div className="user-header border-bottom d-flex align-items-center p-2">

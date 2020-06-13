@@ -114,3 +114,23 @@ export const unlikePost= async (id) =>{
 const unlikedPost = await axios.put('http://localhost:5000/api/unlike', {postId:id}, {headers})
  return unlikedPost.data
 }
+
+export const followUser = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const data = {followId:id}
+    const check = await axios.put('http://localhost:5000/api/follow', data, {headers})
+    return check.data
+}
+
+export const unfollowUser = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+   const data = {unfollowId:id}
+    const check = await axios.put('http://localhost:5000/api/unfollow', data, {headers})
+    return check.data
+}

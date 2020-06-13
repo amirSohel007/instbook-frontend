@@ -1,7 +1,26 @@
 // only 3 weights available in this
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap&Sen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
+.navbar-brand {
+	font-family: 'Grand Hotel', cursive;
+    color: #000;
+    font-size: 32px;
+	letter-spacing: 2px;
+	&:hover {
+		color: #000;
+	}
+}
 
+.logo {
+    font-family: 'Grand Hotel', cursive;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.logo {
+	font-family: 'Grand Hotel', cursive;
+}
 
 body {
 	margin: 0;
@@ -78,6 +97,7 @@ button:focus {
     padding: 3px 10px 6px 18px !important;
     font-size: 15px;
 }
+
 
 
 
@@ -232,11 +252,19 @@ button.nav-link {
 }
 
 .user-avtar {
-	border-radius: 100%;
+    border-radius: 100%;
     overflow: hidden;
-    height: 127px;
+    height: 147px;
     border: solid 1px #d0d0d0;
-    width: 127px;
+    width: 147px;
+
+}
+
+.seprator {
+	width: 100%;
+    height: 1px;
+    background: #d4d4d4;
+    margin-top: 30px;
 }
 
 .spinner-border-sm {border-width: 2px; border-color: #adadad;}
@@ -283,3 +311,9 @@ button.nav-link {
     color: #44d29e !important;
 }
 
+
+.follow-action {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}

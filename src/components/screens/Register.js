@@ -29,12 +29,11 @@ const Register = () => {
         <div className="col-sm-5 pt-5">
           <img className="mobile" src="../../img/insta-snap.png" />
         </div>
-
         <div className="col-sm-4">
           <div className="bg-white form-wrapper mt-5 p-4 border-radius-4">
             <form>
               <div className="form-group text-center">
-                <img className="w-50" src="../../img/logo.png" alt="logo" />
+              <h5 className="logo">InstaBook</h5>
               </div>
               <div className="form-group">
                 <label htmlFor="">Your Name</label>

@@ -72,7 +72,7 @@ function PostModal(props) {
           onChange={(e) => setBody(e.target.value)}
         />
         <label className="image-uploader" for="image-file"> <FiImage/> {photo? photo.name :'Choose Image'}</label>
-        <input className="d-none" id="image-file" type="file" onChange={(e) => setPhoto(e.target.files[0])}/>
+        <input accept="audio/*,video/*,image/*" className="d-none" id="image-file" type="file" onChange={(e) => setPhoto(e.target.files[0])}/>
         {isError && (
                 <div
                   className="alert alert-danger mt-3 text-12 text-center"

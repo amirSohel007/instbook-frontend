@@ -26,12 +26,7 @@ const Menu = () => {
       <Layout>
         <nav className="navbar navbar-expand-lg p-0">
           <Link className="navbar-brand" to={state ? "/" : "/signin"}>
-            <img
-              style={{ width: "128px" }}
-              className=""
-              src="../../img/logo.png"
-              alt="logo"
-            />
+           InstaBook
           </Link>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
@@ -63,9 +58,9 @@ const Menu = () => {
             </li>
             <li className="nav-item user-menu">
               <AuthorizedLink>
-                <Link className="nav-link" to={`/user/${state && state._id}`}>
+                <a className="nav-link" href={`/user/${state && state._id}`}>
                   Profile
-                </Link>
+                </a>
               </AuthorizedLink>
             </li>
             <li className="nav-item user-menu">
