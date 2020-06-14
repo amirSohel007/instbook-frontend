@@ -59,7 +59,7 @@ const Profile = () => {
                 <div className="user-details">
                     {profileData.userInfo && 
                     <div>
-                      <h3>{profileData.userInfo.name}</h3>
+                      <h3>{profileData.userInfo.name} <img className="official-icon" src="../../img/official.png"/> </h3>
                       <p>{profileData.userInfo.email}</p>
                       <div className="follow-action">
                           {(profileData.userInfo._id) != (state && state._id) ? //Checking if you are logged in user
@@ -87,12 +87,14 @@ const Profile = () => {
         </div>
      : Loader.section_loading}
      </div>
-        <div className="row">
+        <div className="row mt-4">
          {profileData.userPosts && 
             profileData.userPosts.map((post) => {
               return (
                 <div key={post._id} className="col-sm-3">
+                  <div className="gallery-img">
                   <img className="w-100" src={post.imageUrl} />
+                  </div>
                 </div>
               );
             }) }

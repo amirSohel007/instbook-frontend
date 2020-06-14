@@ -81,7 +81,7 @@ function Home() {
                 <div className="heart unlike" onClick={() => like(post._id)}></div>
               }
               <p className="mb-0 text-15">{post.likes.length} likes</p>
-              <p className="sen-serif text-13 mb-1">{post.body}</p>
+              <p className="sen-serif text-13 mb-3">{post.body}</p>
             {post.comments && post.comments.length > 0 ?  <h5 className="font-weight-bold text-13 text-black-50"> {post.comments.length } comments</h5> : '' }
               <div className="comment-section mb-3">
                 {post.comments.map(comment => {

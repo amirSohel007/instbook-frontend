@@ -37,6 +37,8 @@ const Menu = () => {
     }
   };
 
+
+
   return (
     <header>
       <Layout>
@@ -45,6 +47,7 @@ const Menu = () => {
            InstaBook
           </Link>
 
+       {state && state._id && 
           <div className="search position-relative">
             <input className="amir" type="text" placeholder="search.." onChange={(e) => searchUser(e.target.value)}/>
             {isloading ?  <Spinner animation="border" size="sm" /> : ''}
@@ -64,8 +67,8 @@ const Menu = () => {
                 )
               })}   
             </ul>}
-           
           </div>
+        }
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <UnauthorizedLink className="nav-link" to="/signin">

@@ -9,25 +9,27 @@ const {state, dispatch} = useContext(UserContext)
 const [users, setUsers] = useState([])
 
   const getSuggestUser = async () => {
+    let userId = JSON.parse(localStorage.getItem("userInfo"));
     const data = await suggessionUsers();
-    setUsers(data);
+    let filterdItem = data && data.filter((item) => item._id != userId._id);
+    setUsers(filterdItem);
   };
 
   const follow = async (id) => {
-    const data = await followUser(id)
+    const data = await followUser(id);
     const user = await suggessionUsers();
-    if(data){
+    if (data) {
       setUsers(user);
     }
-  }
+  };
 
   const unfollow = async (id) => {
-    const data = await unfollowUser(id)
+    const data = await unfollowUser(id);
     const user = await suggessionUsers();
-    if(data){
+    if (data) {
       setUsers(user);
     }
-  }
+  };
 
   useEffect(() => {
    getSuggestUser();
@@ -50,7 +52,6 @@ const [users, setUsers] = useState([])
             {users && users.length > 0 ?  users.map(user => {
               return(
             <li className="mb-3" key={user._id}>
-             
               <div className="follow-suggestion d-flex">
                 <div className="align-items-center d-flex  p-2 user-header w-100">
                   <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&amp;_nc_sid=7206a8&amp;_nc_ohc=1HgK80DWbWcAX_cW4aV&amp;_nc_ht=scontent.fudr1-1.fna&amp;oh=a9943d102e4ef3ac606dd30d9ba09087&amp;oe=5F03D6C1" />
@@ -69,13 +70,9 @@ const [users, setUsers] = useState([])
                         : <button className="btn btn-primary follow-sm" onClick={(e) => follow(user._id)}> Follow</button>}
                       </div>
                   </div>
-
-                  
                 </div>
               </div>
-            </li>
-              )
-            }) : Loader.section_loading}
+            </li>)}) : Loader.section_loading}
           </ul>
         </div>
       </div>
