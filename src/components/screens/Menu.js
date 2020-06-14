@@ -5,12 +5,17 @@ import PostModal from './Post-Modal'
 import {UserContext} from '../../App'
 import UnauthorizedLink from './UnauthorizedLink'
 import AuthorizedLink from './AuthorizedLink'
+import {findUser} from '../../API-Calls/Data-provider'
+import {Loader} from '../../method/common'
+import Spinner from 'react-bootstrap/Spinner'
 
 
 const Menu = () => {
   const history = useHistory()
   const {state, dispatch} = useContext(UserContext)
   const [show, setShow] = useState(false)
+  const [search, setSearch] = useState([])
+  const [isloading, setLoading] = useState()
 
 	const openModal =() => setShow(true)
   const updateValue = (val) => setShow(val)
@@ -18,8 +23,19 @@ const Menu = () => {
     history.push('/signin')
     localStorage.clear()
     dispatch({type:'CLEAR'})
-   
   }
+
+  const searchUser = async (key) => {
+    setLoading(true);
+    const searchUsers = await findUser(key);
+    if (searchUser) {
+      setSearch(searchUsers);
+      setLoading(false);
+      if (document.querySelector(".search input").value == "") {
+        setSearch(false);
+      }
+    }
+  };
 
   return (
     <header>
@@ -29,8 +45,26 @@ const Menu = () => {
            InstaBook
           </Link>
 
-          <div className="search">
-            <input type="text" placeholder="search.."/>
+          <div className="search position-relative">
+            <input className="amir" type="text" placeholder="search.." onChange={(e) => searchUser(e.target.value)}/>
+            {isloading ?  <Spinner animation="border" size="sm" /> : ''}
+            {search && search.length > 0 && 
+             <ul className="search-result m-0 p-0 list-unstyled">
+              {search && search.map(item => {
+                return (
+                 <a key={item._id} href={`/user/${item._id}`} className="text-body">
+                  <li className="d-flex">
+                    <img src="https://cdn6.aptoide.com/imgs/1/d/a/1dadb0eaed4920b25029735fdd7541ec_icon.png?w=256"/>
+                    <div>
+                    <h3>{item.name}</h3>
+                      <p>{item.email}</p>
+                    </div>
+                  </li>
+                 </a>
+                )
+              })}   
+            </ul>}
+           
           </div>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">

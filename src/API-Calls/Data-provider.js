@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const apiUrl = process.env.REACT_APP_API_URL 
-// const apiUrl = 'http://localhost:5000'
+// const apiUrl = 'http://localhost:5000/api/'
 
 const headers = {
   "Content-Type": "application/json",
@@ -25,6 +25,18 @@ export const register = async (e, name, email, password) => {
   let res = await axios.post(`${apiUrl}signup`, data);
   return res.data;
 };
+
+//Register
+export const findUser = async (key) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  let body = {key:key}
+  let res = await axios.post(`${apiUrl}search`, body, {headers});
+  return res.data;
+};
+
 
 //suggessionUsers Users
 export const suggessionUsers = async () => {

@@ -99,7 +99,7 @@ function Home() {
       }): Loader.section_loading }
           </div>
 
-          <div className="col-sm-4 offset-1">
+          <div className="col-sm-5">
             <Sidebar />
           </div>
         </div>

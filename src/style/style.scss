@@ -1,5 +1,5 @@
 // only 3 weights available in this
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap&Sen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
 .navbar-brand {
@@ -24,7 +24,7 @@
 
 body {
 	margin: 0;
-	font-family: 'Quicksand', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: #f5f5f5 !important;
@@ -234,13 +234,14 @@ header {
 
 .follow-sm {
     padding: 1px 10px;
-    font-size: 13px;
+    font-size: 12px;
     border-radius: 3px;
 }
 
 .sidebar {
     position: sticky;
-    top: 100px;
+	top: 100px;
+	padding-left: 30px;
 }
 
 button.nav-link {
@@ -332,4 +333,66 @@ button.nav-link {
 			outline: none;
 		}
 	}
+}
+
+.search .spinner-border {
+    position: absolute;
+    right: 10px;
+    width: 13px;
+    height: 13px;
+    top: 10px;
+}
+
+.search-result {
+	position: absolute;
+    background: #fff;
+    z-index: 99;
+    padding: 15px 18px!important;
+    width: 100%;
+	border: solid 1px #e5e5e5;
+	border-top: none;
+	max-height: 200px;
+	padding-bottom: 0 !important;
+	overflow: auto;
+	.spinner-border {
+		position: absolute;
+		top: -23px;
+		right: 10px;
+		width: 13px;
+		height: 13px;
+	}
+	li {
+		img {
+			width: 30px;
+			height: 30px;
+			margin-right: 15px;
+		}
+		h3{
+			font-size: 14px;
+			font-weight: 500;
+   			margin-bottom: 2px;
+		}
+		p{
+			font-size: 12px;
+			color: #616161;
+		}
+	}
+}
+
+
+
+.search-result::-webkit-scrollbar {
+    width: 5px;
+}
+  .search-result::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+.search-result::-webkit-scrollbar-thumb {
+    background-color: #cacaca;
+    border-radius: 19px;
+}
+
+.follow-area {
+    position: absolute;
+    right: 0;
 }

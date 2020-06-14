@@ -88,17 +88,19 @@ const Profile = () => {
      : Loader.section_loading}
      </div>
         <div className="row">
-         {profileData.userPosts &&
+         {profileData.userPosts && 
             profileData.userPosts.map((post) => {
               return (
                 <div key={post._id} className="col-sm-3">
                   <img className="w-100" src={post.imageUrl} />
                 </div>
               );
-            })}
+            }) }
         </div>
+          <div className="mt-5 text-center">{profileData.userPosts && profileData.userPosts.length === 0 ? 'You haven\'t post anything yet.' : ''}</div>
       </Layout>
     );
 }
+
 
 export default Profile

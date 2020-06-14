@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {UserContext} from '../../App'
 import {Loader} from '../../method/common'
-import {suggessionUsers} from '../../API-Calls/Data-provider'
+import {Link} from 'react-router-dom'
+import {suggessionUsers,followUser, unfollowUser} from '../../API-Calls/Data-provider'
 
 const Sidebar = () => {
 const {state, dispatch} = useContext(UserContext)
@@ -12,8 +13,24 @@ const [users, setUsers] = useState([])
     setUsers(data);
   };
 
+  const follow = async (id) => {
+    const data = await followUser(id)
+    const user = await suggessionUsers();
+    if(data){
+      setUsers(user);
+    }
+  }
+
+  const unfollow = async (id) => {
+    const data = await unfollowUser(id)
+    const user = await suggessionUsers();
+    if(data){
+      setUsers(user);
+    }
+  }
+
   useEffect(() => {
-    getSuggestUser();
+   getSuggestUser();
   }, []);
 
     return (
@@ -27,26 +44,33 @@ const [users, setUsers] = useState([])
         </div>
         <div className="user-suggestion mt-4">
           <h3 className="font-weight-bold text-15 text-black-50 mb-4">
-            Suggestion For You
+            Recent Join people
           </h3>
           <ul className="p-0 m-0 list-unstyled">
             {users && users.length > 0 ?  users.map(user => {
               return(
             <li className="mb-3" key={user._id}>
+             
               <div className="follow-suggestion d-flex">
-                <div className="align-items-center d-flex justify-content-between p-2 user-header w-100">
+                <div className="align-items-center d-flex  p-2 user-header w-100">
                   <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&amp;_nc_sid=7206a8&amp;_nc_ohc=1HgK80DWbWcAX_cW4aV&amp;_nc_ht=scontent.fudr1-1.fna&amp;oh=a9943d102e4ef3ac606dd30d9ba09087&amp;oe=5F03D6C1" />
-                  <div className="flex-grow-1">
+                   <Link className="text-body" to={`/user/${user._id}`}>
+                  <div className="flex-grow-1 ">
                     <h5 className="mb-0">{user.name}</h5>
                     <p className="mb-0 text-13 text-black-50">
                    {user.email}
                     </p>
                   </div>
+                    </Link>
                   <div>
-                    <button className="btn btn-primary follow-sm">
-                      Follow
-                    </button>
+                  <div className="follow-area">
+                          {user && user.followers.includes(state && state._id) //if you have alredy followed
+                        ? <button className="btn btn-primary follow-sm" onClick={(e)=> unfollow(user._id)}>Unfollow</button> 
+                        : <button className="btn btn-primary follow-sm" onClick={(e) => follow(user._id)}> Follow</button>}
+                      </div>
                   </div>
+
+                  
                 </div>
               </div>
             </li>
