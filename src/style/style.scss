@@ -416,7 +416,8 @@ button.nav-link {
 	}
 }
 
-.mobile-wrapper, .application-wrapper {display: block;}
+ .application-wrapper {display: block;}
+ .mobile-wrapper {display: flex;}
 
 
 .gallery-img {
