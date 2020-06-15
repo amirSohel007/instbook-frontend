@@ -16,6 +16,7 @@ const Menu = () => {
   const [show, setShow] = useState(false)
   const [search, setSearch] = useState([])
   const [isloading, setLoading] = useState()
+  const isAdministrator = '5edf5ddc0b47dc117f301ee5'
 
 	const openModal =() => setShow(true)
   const updateValue = (val) => setShow(val)
@@ -59,7 +60,7 @@ const Menu = () => {
                   <li className="d-flex">
                     <img src="https://cdn6.aptoide.com/imgs/1/d/a/1dadb0eaed4920b25029735fdd7541ec_icon.png?w=256"/>
                     <div>
-                    <h3>{item.name}</h3>
+                    <h3>{item.name} {isAdministrator ==  item._id? <img className="official-icon" src="../../img/official.png"/> : ''}</h3>
                       <p>{item.email}</p>
                     </div>
                   </li>

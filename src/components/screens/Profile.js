@@ -11,6 +11,7 @@ const Profile = () => {
   const {state, dispatch} = useContext(UserContext)
   const [profileData, setprofileData] = useState('')
   const [isFollow, setFollow] = useState(false)
+  const isAdministrator = '5edf5ddc0b47dc117f301ee5'
   
   const userProfile = async () => {
     let userId = JSON.parse(localStorage.getItem('userInfo'))
@@ -59,7 +60,7 @@ const Profile = () => {
                 <div className="user-details">
                     {profileData.userInfo && 
                     <div>
-                      <h3>{profileData.userInfo.name} <img className="official-icon" src="../../img/official.png"/> </h3>
+                      <h3>{profileData.userInfo.name} {(isAdministrator) == (profileData.userInfo && profileData.userInfo._id) ? <img className="official-icon" src="../../img/official.png"/> : ''} </h3>
                       <p>{profileData.userInfo.email}</p>
                       <div className="follow-action">
                           {(profileData.userInfo._id) != (state && state._id) ? //Checking if you are logged in user

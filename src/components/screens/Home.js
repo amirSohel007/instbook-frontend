@@ -10,6 +10,7 @@ import {deletePost, commentPost, getPosts, likePost, unlikePost} from '../../API
 import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
+  const isAdministrator = '5edf5ddc0b47dc117f301ee5'
   const {state, dispatch} = useContext(UserContext)
   const [posts, setPosts] = useState([]);
 
@@ -65,7 +66,7 @@ function Home() {
             <div className="user-header border-bottom d-flex align-items-center p-2">
               <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&_nc_sid=7206a8&_nc_ohc=1HgK80DWbWcAX_cW4aV&_nc_ht=scontent.fudr1-1.fna&oh=a9943d102e4ef3ac606dd30d9ba09087&oe=5F03D6C1" />
               <h5 className="mb-0">
-              <Link className="text-body" to={`/user/${post.postedBy._id}`}>{post.postedBy.name ? post.postedBy.name : "--"}</Link>
+              <Link className="text-body" to={`/user/${post.postedBy._id}`}>{post.postedBy.name ? post.postedBy.name : "--"} {isAdministrator ==  post.postedBy._id? <img className="official-icon" src="../../img/official.png"/> : ''} </Link>
               </h5>
               <div className="action">
               {post.postedBy._id == state._id ? <AiOutlineDelete onClick={(e) => deleteItem(post._id)}/> :''} 
@@ -82,11 +83,11 @@ function Home() {
               }
               <p className="mb-0 text-15">{post.likes.length} likes</p>
               <p className="sen-serif text-13 mb-3">{post.body}</p>
-            {post.comments && post.comments.length > 0 ?  <h5 className="font-weight-bold text-13 text-black-50"> {post.comments.length } comments</h5> : '' }
+            {post.comments && post.comments.length > 0 ?  <h5 className="text-13 text-black-50"> {post.comments.length } comments</h5> : '' }
               <div className="comment-section mb-3">
                 {post.comments.map(comment => {
                   return(
-                  <p className="mb-0 text-13" key={comment._id}><span className="font-weight-bold">{comment.postedBy.name}</span> - {comment.text}</p>
+                  <p className="mb-0 text-13" key={comment._id}><span className="font-weight-500">{comment.postedBy.name}</span> - {comment.text}</p>
                   )
                 })}
               </div>

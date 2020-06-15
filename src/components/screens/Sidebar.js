@@ -7,6 +7,7 @@ import {suggessionUsers,followUser, unfollowUser} from '../../API-Calls/Data-pro
 const Sidebar = () => {
 const {state, dispatch} = useContext(UserContext)
 const [users, setUsers] = useState([])
+const isAdministrator = '5edf5ddc0b47dc117f301ee5'
 
   const getSuggestUser = async () => {
     let userId = JSON.parse(localStorage.getItem("userInfo"));
@@ -38,14 +39,14 @@ const [users, setUsers] = useState([])
     return (
       <div className="sidebar">
         <div className="user-header d-flex align-items-center p-2">
-          <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&_nc_sid=7206a8&_nc_ohc=1HgK80DWbWcAX_cW4aV&_nc_ht=scontent.fudr1-1.fna&oh=a9943d102e4ef3ac606dd30d9ba09087&oe=5F03D6C1" />
+          <img style={{width: "40px"}} src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&_nc_sid=7206a8&_nc_ohc=1HgK80DWbWcAX_cW4aV&_nc_ht=scontent.fudr1-1.fna&oh=a9943d102e4ef3ac606dd30d9ba09087&oe=5F03D6C1" />
           <div>
             <h5 className="mb-0">{state && state.name}</h5>
             <p className="mb-0 text-13 text-black-50">{state && state.email}</p>
           </div>
         </div>
         <div className="user-suggestion mt-4">
-          <h3 className="font-weight-bold text-15 text-black-50 mb-4">
+          <h3 className=" text-15 text-black-50 mb-4">
             Recent Join people
           </h3>
           <ul className="p-0 m-0 list-unstyled">
@@ -56,8 +57,8 @@ const [users, setUsers] = useState([])
                 <div className="align-items-center d-flex  p-2 user-header w-100">
                   <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&amp;_nc_sid=7206a8&amp;_nc_ohc=1HgK80DWbWcAX_cW4aV&amp;_nc_ht=scontent.fudr1-1.fna&amp;oh=a9943d102e4ef3ac606dd30d9ba09087&amp;oe=5F03D6C1" />
                    <Link className="text-body" to={`/user/${user._id}`}>
-                  <div className="flex-grow-1 ">
-                    <h5 className="mb-0">{user.name}</h5>
+                  <div className="flex-grow-1 suggest-list">
+                    <h5 className="mb-0">{user.name} {isAdministrator ==  user._id? <img className="official-icon" src="../../img/official.png"/> : ''}</h5> 
                     <p className="mb-0 text-13 text-black-50">
                    {user.email}
                     </p>

@@ -2,6 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
+@font-face {
+	font-family: proximanova;
+	src: url('../fonts/ProximaNovaRegular.ttf');
+  }
+
+  @font-face {
+	font-family: proximanova-light;
+	src: url('../fonts/Proxima-Nova-Light.otf');
+  }
+
+  p {letter-spacing: 0.3px;}
+  
+
 .navbar-brand {
 	font-family: 'Grand Hotel', cursive;
     color: #000;
@@ -24,11 +37,10 @@
 
 body {
 	margin: 0;
-	font-family: 'Roboto', sans-serif;
+	font-family:proximanova;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: #f5f5f5 !important;
-	font-weight: 500;
 }
 
 .sen-serif {font-family: 'Sen', sans-serif;}
@@ -247,7 +259,6 @@ header {
 button.nav-link {
     background: transparent;
     border: none;
-	font-weight: 500;
 	&:focus{
 		outline: none;
 	}
@@ -315,6 +326,7 @@ button.nav-link {
     color: #44d29e !important;
 }
 
+.Toastify__toast {min-height: 40px !important;}
 
 .follow-action {
     position: absolute;
@@ -424,7 +436,9 @@ button.nav-link {
     max-height: 250px;
     position: relative;
 	overflow: hidden;
+	min-height: 250px;
 	img {
+		min-height: 250px;
 		max-height: 250px;
 		position: relative;
 		overflow: hidden;
@@ -432,6 +446,7 @@ button.nav-link {
 		padding: 6px;
 		border: solid 1px #e5e5e5;
 		border-radius: 3px;
+		object-fit: cover;
 	}
 }
 
@@ -450,5 +465,12 @@ button.nav-link {
 }
 
 .official-icon {
-    width: 20px;
+    border: none !important;
+	width: 16px !important;
+	height: 16px !important;
+    margin-left: 3px;
+    top: -1px;
+    position: relative;
 }
+
+.font-weight-500 {font-weight: 500;}
