@@ -20,9 +20,9 @@ const Login = () => {
       setError(userLogin.error);
       setProcessing(false);
     } else {
-      const { token, email, name, _id } = userLogin;
+      const { token, email, name, _id, profileImg } = userLogin;
       localStorage.setItem("authToken", token);
-      const user = { email, name, _id };
+      const user = { email, name, _id, profileImg };
       localStorage.setItem("userInfo", JSON.stringify(user));
       dispatch({ type: "USER", payload: user });
       setProcessing(false);

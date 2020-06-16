@@ -130,6 +130,7 @@ const unlikedPost = await axios.put(`${apiUrl}unlike`, {postId:id}, {headers})
  return unlikedPost.data
 }
 
+//follow user
 export const followUser = async (id) => {
   const headers = {
     "Content-Type": "application/json",
@@ -140,12 +141,26 @@ export const followUser = async (id) => {
     return check.data
 }
 
+
+//unfollow user
 export const unfollowUser = async (id) => {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
-   const data = {unfollowId:id}
+    const data = {unfollowId:id}
     const check = await axios.put(`${apiUrl}unfollow`, data, {headers})
     return check.data
+}
+
+//change profile
+
+export const updateProfilePicture = async (profileImg) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const data = {profileImg:profileImg}
+  const newImageData = await axios.put(`${apiUrl}update-image`, data, {headers})
+  return newImageData
 }

@@ -2,16 +2,19 @@ import React, { useState, useEffect, useContext } from 'react'
 import {UserContext} from '../../App'
 import Layout from './Layout'
 import {Loader} from '../../method/common'
-import {getProfile, followUser, unfollowUser} from '../../API-Calls/Data-provider'
+import {getProfile, followUser, unfollowUser, updateProfilePicture} from '../../API-Calls/Data-provider'
 import { useParams } from 'react-router-dom';
- 
+import axios from 'axios'
+import { AiTwotoneSetting } from "react-icons/ai";
 
 const Profile = () => {
   let test = useParams()
   const {state, dispatch} = useContext(UserContext)
   const [profileData, setprofileData] = useState('')
   const [isFollow, setFollow] = useState(false)
+  const [image, setImage] = useState()
   const isAdministrator = '5edf5ddc0b47dc117f301ee5'
+  const [uploading, setUploading] = useState(false)
   
   const userProfile = async () => {
     let userId = JSON.parse(localStorage.getItem('userInfo'))
@@ -19,6 +22,7 @@ const Profile = () => {
     if (findUser.userInfo.followers.indexOf(userId._id) != -1) setFollow(true)
     else setFollow(false)
     if (findUser) setprofileData(findUser);
+
     else console.log("error");
   };
 
@@ -38,6 +42,39 @@ const Profile = () => {
     }
   }
 
+
+  async function setProfileImage(e) {
+
+    //posting image on server
+    setUploading(true)
+    const data = new FormData();
+    data.append("file", e);
+    data.append("upload_preset", "instagram");
+    data.append("cloud_name", "amirsohel");
+    let imageUrl = await axios.post(`https://api.cloudinary.com/v1_1/amirsohel/image/upload`,data)
+    .catch(error => console.log(error))
+    if(imageUrl.data.url) 
+    await setImage(imageUrl.data) 
+
+    //calling the update image api with image src 
+    const updateImage = await updateProfilePicture(imageUrl.data.url)
+
+    //dispatch the image url and updating in localStroge
+    dispatch({type:'IMAGE', payload:imageUrl.data})
+    const getUser = JSON.parse(localStorage.getItem('userInfo'))
+    getUser.profileImg = imageUrl.data.url
+    localStorage.setItem('userInfo', JSON.stringify(getUser))
+
+    //updating the state
+       setprofileData((preState) => {
+         return {
+           ...preState,
+           userInfo: updateImage.data,
+         };
+       });
+      setUploading(false)
+  }
+
   useEffect(() => {
     userProfile();
   }, []);
@@ -45,14 +82,14 @@ const Profile = () => {
     return (
       <Layout>
         <div className={`${profileData ? "" : "mt-5 text-center"}`}>
-    {profileData && profileData ?
+     {profileData && profileData ?
         <div className="row justify-content-center pt-4">
           <div className="col-sm-9">
             <div className="row">
               <div className="col-sm-3">
                 <div className="user-avtar">
                   <img className="w-100"
-                    src="https://instagram.fudr1-1.fna.fbcdn.net/v/t51.2885-15/e35/95715753_621921261733712_3830589580592716532_n.jpg?_nc_ht=instagram.fudr1-1.fna.fbcdn.net&_nc_cat=108&_nc_ohc=DBwUh4F0PdQAX_IjDPf&oh=e9be9e4585b64b4978e0205d8990c3e2&oe=5F09160B"
+                    src={uploading ? 'https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' :  profileData.userInfo && profileData.userInfo.profileImg }
                   />
                 </div>
               </div>
@@ -60,6 +97,14 @@ const Profile = () => {
                 <div className="user-details">
                     {profileData.userInfo && 
                     <div>
+                     {(profileData.userInfo._id) === (state && state._id) ?
+                     <div className="update-dp">
+                     <label>
+                     <AiTwotoneSetting/>  Edit Image
+                     <input type="file" id="change-dp" className="d-none"  onChange={(e) => setProfileImage(e.target.files[0])}/>
+                     </label>
+                   </div> : '' 
+                    }
                       <h3>{profileData.userInfo.name} {(isAdministrator) == (profileData.userInfo && profileData.userInfo._id) ? <img className="official-icon" src="../../img/official.png"/> : ''} </h3>
                       <p>{profileData.userInfo.email}</p>
                       <div className="follow-action">
