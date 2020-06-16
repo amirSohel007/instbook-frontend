@@ -43,15 +43,18 @@ function PostModal(props) {
 
 
   async function submitPost() {
+
     setProcessing(true);
     const newPost = await createPost(body, imageUrl);
     if (newPost.error) {
       setError(newPost.error);
       setProcessing(false);
     }
+   else {
     setProcessing(false);
     setError(false);
     window.location.href = '/'
+   }
   }
 
   return (
