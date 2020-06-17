@@ -64,7 +64,7 @@ function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="user-header d-flex align-items-center">
-          <img src="https://scontent.fudr1-1.fna.fbcdn.net/v/t1.0-1/cp0/p40x40/89032796_2568881379999310_9071156969955393536_o.jpg?_nc_cat=100&_nc_sid=7206a8&_nc_ohc=1HgK80DWbWcAX_cW4aV&_nc_ht=scontent.fudr1-1.fna&oh=a9943d102e4ef3ac606dd30d9ba09087&oe=5F03D6C1"/>
+          <img src={state && state.profileImg}/>
           <h5>{state && state.name}</h5>
         </div>
         <textarea
