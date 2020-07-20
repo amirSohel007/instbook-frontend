@@ -6,12 +6,6 @@ import TwitterLogin from "react-twitter-login";
 
 
 const Register = () => {
-
-  const authHandler = (err, data) => {
-    console.log(err, data);
-  };
-
-
   let history = useHistory()
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -94,12 +88,6 @@ const Register = () => {
               >
                 {processing ? "Processing...." : "Sign Up"}
               </button>
-              <TwitterLogin
-              authCallback={authHandler}
-              consumerKey='PyHxgJuyORZqhDiuKAne8LcxT'
-              consumerSecret='RBqOgWJfflgk2GLGmKtHFnHituqvf3vROPfAqzOPpfKficIrI9'
-              callbackUrl='https://alexandrtovmach.github.io/react-twitter-login/'
-            />
 
               <p className="mb-0 text-13 text-center">
                 Already have account ?{" "}
