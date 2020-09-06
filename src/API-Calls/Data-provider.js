@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 //login 
 export const login = async (e, email, password) => {
@@ -56,11 +54,11 @@ export const createPost = async (body, imageUrl) => {
 export const deletePost = async (postId) => {
   const deleteItem = await axios.delete(`delete/${postId}`, )
   if(deleteItem.data.status){
-    toast.success("Post has been deleted !", {position: toast.POSITION.BOTTOM_CENTER});
+    // toast.success("Post has been deleted !", {position: toast.POSITION.BOTTOM_CENTER});
     return deleteItem.data
   }
-  else
-  toast.danger("Something went wrong !", {position: toast.POSITION.BOTTOM_CENTER});
+  // else
+  // toast.danger("Something went wrong !", {position: toast.POSITION.BOTTOM_CENTER});
 }
 
 //comment on post
