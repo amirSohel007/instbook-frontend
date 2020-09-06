@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Layout from "./Layout";
 import { NavLink, useHistory} from "react-router-dom";
 import { register } from "../../API-Calls/Data-provider";
-import TwitterLogin from "react-twitter-login";
 
 
 const Register = () => {
