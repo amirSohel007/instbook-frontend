@@ -8,7 +8,7 @@ import Menu from "./components/screens/Menu";
 import Home from "./components/screens/Home";
 import Profile from './components/screens/Profile'
 import "./style/style.scss";
-
+import { ToastProvider} from 'react-toast-notifications'
 
 export const UserContext = createContext()
 const Routing = () => {
@@ -47,10 +47,12 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
   return (
       <UserContext.Provider value={{state, dispatch}}>
+        <ToastProvider>
       <Router>
         <Menu />
         <Routing />
       </Router>
+      </ToastProvider>
       </UserContext.Provider>
   );
 }

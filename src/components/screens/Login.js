@@ -4,27 +4,33 @@ import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {UserContext} from '../../App'
 import {login} from '../../API-Calls/Data-provider'
+import { useToasts } from 'react-toast-notifications'
 
 const Login = () => {
+  const { addToast } = useToasts()
   const {state, dispatch} = useContext(UserContext) 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [isError, setError] = useState("");
   const history = useHistory();
 
   async function postSignIn(e) {
+    
     setProcessing(true);
     const userLogin = await login(e, email, password);
+
     if (userLogin.error) {
-      setError(userLogin.error);
+      addToast(userLogin.error, { appearance: 'error' })
       setProcessing(false);
-    } else {
+    } 
+    
+    else {
       const { token, email, name, _id, profileImg } = userLogin;
       localStorage.setItem("authToken", token);
       const user = { email, name, _id, profileImg };
       localStorage.setItem("userInfo", JSON.stringify(user));
       dispatch({ type: "USER", payload: user });
+      addToast('Logged in Successfully', { appearance: 'success' })
       setProcessing(false);
       history.push("/");
     }
@@ -80,14 +86,6 @@ const Login = () => {
                   Create one
                 </NavLink>
               </p>
-              {isError && (
-                <div
-                  className="alert alert-danger mt-3 text-12 text-center"
-                  role="alert"
-                >
-                  {isError}
-                </div>
-              )}
             </form>
           </div>
         </div>

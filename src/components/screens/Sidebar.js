@@ -12,7 +12,7 @@ const isAdministrator = '5edf5ddc0b47dc117f301ee5'
   const getSuggestUser = async () => {
     let userId = JSON.parse(localStorage.getItem("userInfo"));
     const data = await suggessionUsers();
-    let filterdItem = data && data.filter((item) => item._id != userId._id);
+    let filterdItem = data?.filter((item) => item._id != userId._id);
     setUsers(filterdItem);
   };
 

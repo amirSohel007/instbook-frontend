@@ -1,37 +1,37 @@
 import React, { useState } from "react";
 import Layout from "./Layout";
-import { NavLink, useHistory} from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { register } from "../../API-Calls/Data-provider";
-
+import { useToasts } from 'react-toast-notifications'
 
 const Register = () => {
+  const { addToast } = useToasts()
   let history = useHistory()
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [isError, setError] = useState("");
   const emailPattern = /^([\-\_\.0-9a-zA-Z]+)@([\-\_\.0-9a-zA-Z]+)\.([a-z]){2,7}$/
 
   async function formSubmit(e) {
     setProcessing(true);
-    if(emailPattern.test(email)){
+    if (emailPattern.test(email)) {
       const userRegister = await register(e, name, email, password);
+
       if (userRegister.error) {
-        setError(userRegister.error);
+        addToast(userRegister.error, { appearance: 'error' })
         setProcessing(false);
-      } else {
+      }
+      else {
+        addToast('User Registerd!', { appearance: 'success' })
         setProcessing(false);
         history.push('/signin')
       }
     }
     else {
-      setError('Invaid email address');
+      addToast('Invaid email address', { appearance: 'error' })
       setProcessing(false);
     }
-
-
-  
   }
 
   return (
@@ -44,7 +44,7 @@ const Register = () => {
           <div className="bg-white form-wrapper mt-5 p-4 border-radius-4">
             <form>
               <div className="form-group text-center">
-              <h5 className="logo">InstaBook</h5>
+                <h5 className="logo">InstaBook</h5>
               </div>
               <div className="form-group">
                 <label htmlFor="">Your Name</label>
@@ -93,18 +93,7 @@ const Register = () => {
                 <NavLink className="primary-text" to="/signin">
                   Login
                 </NavLink>
-                
               </p>
-              {isError && (
-                <div
-                  className="alert alert-danger mt-3 text-12 text-center"
-                  role="alert"
-                >
-                  {isError}
-                </div>
-              )}
-
-
             </form>
           </div>
         </div>

@@ -1,22 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
-import {UserContext} from '../../App'
+import { UserContext } from '../../App'
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {createPost} from '../../API-Calls/Data-provider'
+import { createPost } from '../../API-Calls/Data-provider'
 import { FiImage } from "react-icons/fi";
+import { useToasts } from 'react-toast-notifications'
+
 
 function PostModal(props) {
+  const { addToast } = useToasts()
   const handleClose = () => {
     props.closeModal(false);
   };
 
-  const {state, dispatch} = useContext(UserContext)
+  const { state, dispatch } = useContext(UserContext)
   const [body, setBody] = useState("");
   const [processing, setProcessing] = useState(false);
   const [photo, setPhoto] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [isError, setError] = useState('')
 
   async function uploadImage(e) {
     setProcessing(true)
@@ -25,12 +27,12 @@ function PostModal(props) {
     data.append("upload_preset", "instagram");
     data.append("cloud_name", "amirsohel");
     let imageUrl = await axios.post(
-      `https://api.cloudinary.com/v1_1/amirsohel/image/upload`,data)
+      `https://api.cloudinary.com/v1_1/amirsohel/image/upload`, data)
       .catch(error => {
-        setError('Upload a image')
+      addToast('Upload a image', { appearance: 'error' })
         setProcessing(false)
-       })
-      if(imageUrl)
+      })
+    if (imageUrl)
       setImageUrl(imageUrl.data.url);
   }
 
@@ -47,14 +49,14 @@ function PostModal(props) {
     setProcessing(true);
     const newPost = await createPost(body, imageUrl);
     if (newPost.error) {
-      setError(newPost.error);
+      addToast(newPost.error, { appearance: 'error' })
       setProcessing(false);
     }
-   else {
-    setProcessing(false);
-    setError(false);
-    window.location.href = '/'
-   }
+    else {
+      addToast('Post published', { appearance: 'success' })
+      setProcessing(false);
+      window.location.href = '/'
+    }
   }
 
   return (
@@ -64,7 +66,7 @@ function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="user-header d-flex align-items-center">
-          <img src={state && state.profileImg}/>
+          <img src={state && state.profileImg} />
           <h5>{state && state.name}</h5>
         </div>
         <textarea
@@ -74,16 +76,8 @@ function PostModal(props) {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         />
-        <label className="image-uploader" for="image-file"> <FiImage/> {photo? photo.name :'Choose Image'}</label>
-        <input accept="audio/*,video/*,GIF/*,image/*" className="d-none" id="image-file" type="file" onChange={(e) => setPhoto(e.target.files[0])}/>
-        {isError && (
-                <div
-                  className="alert alert-danger mt-3 text-12 text-center"
-                  role="alert"
-                >
-                  {isError}
-                </div>
-              )}
+        <label className="image-uploader" htmlFor="image-file"> <FiImage /> {photo ? photo.name : 'Choose Image'}</label>
+        <input accept="audio/*,video/*,GIF/*,image/*" className="d-none" id="image-file" type="file" onChange={(e) => setPhoto(e.target.files[0])} />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={uploadImage}>
