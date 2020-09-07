@@ -9,6 +9,13 @@ import Home from "./components/screens/Home";
 import Profile from './components/screens/Profile'
 import "./style/style.scss";
 import { ToastProvider} from 'react-toast-notifications'
+import axios from 'axios'
+
+
+//BASE URL
+axios.defaults.baseURL = 'https://insta-book-api.herokuapp.com/api/';
+axios.defaults.headers.common[ "Content-Type"] = 'application/json'
+axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("authToken")}`
 
 export const UserContext = createContext()
 const Routing = () => {

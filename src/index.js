@@ -3,12 +3,8 @@ import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import axios from 'axios'
 
-//BASE URL
-axios.defaults.baseURL = 'https://insta-book-api.herokuapp.com/api/';
-axios.defaults.headers.common[ "Content-Type"] = 'application/json'
-axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("authToken")}`
+
 
 
 ReactDOM.render(
