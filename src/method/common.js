@@ -8,3 +8,19 @@ export const Loader = {
     </Spinner>
   ),
 };
+
+export const successMessage = () => {
+  return {
+    appearance: 'success',
+    autoDismiss: true,
+    autoDismissTimeout: 2000
+  }
+}
+
+export const errorMessage = () => {
+  return {
+    appearance: 'error',
+    autoDismiss: true,
+    autoDismissTimeout: 2000
+  }
+}

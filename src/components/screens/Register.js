@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "./Layout";
 import { NavLink, useHistory } from "react-router-dom";
 import { register } from "../../API-Calls/Data-provider";
+import {successMessage, errorMessage} from '../../method/common'
 import { useToasts } from 'react-toast-notifications'
 
 const Register = () => {
@@ -19,17 +20,17 @@ const Register = () => {
       const userRegister = await register(e, name, email, password);
 
       if (userRegister.error) {
-        addToast(userRegister.error, { appearance: 'error' })
+        addToast(userRegister.error, errorMessage())
         setProcessing(false);
       }
       else {
-        addToast('User Registerd!', { appearance: 'success' })
+        addToast('User Registerd!', successMessage())
         setProcessing(false);
         history.push('/signin')
       }
     }
     else {
-      addToast('Invaid email address', { appearance: 'error' })
+      addToast('Invaid email address', errorMessage())
       setProcessing(false);
     }
   }

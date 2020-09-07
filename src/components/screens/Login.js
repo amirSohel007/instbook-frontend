@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import {UserContext} from '../../App'
 import {login} from '../../API-Calls/Data-provider'
 import { useToasts } from 'react-toast-notifications'
+import {successMessage, errorMessage} from '../../method/common'
 
 const Login = () => {
   const { addToast } = useToasts()
@@ -20,7 +21,7 @@ const Login = () => {
     const userLogin = await login(e, email, password);
 
     if (userLogin.error) {
-      addToast(userLogin.error, { appearance: 'error' })
+      addToast(userLogin.error, errorMessage())
       setProcessing(false);
     } 
     
@@ -30,7 +31,7 @@ const Login = () => {
       const user = { email, name, _id, profileImg };
       localStorage.setItem("userInfo", JSON.stringify(user));
       dispatch({ type: "USER", payload: user });
-      addToast('Logged in Successfully', { appearance: 'success' })
+      addToast('Logged in Successfully', successMessage())
       setProcessing(false);
       history.push("/");
     }
