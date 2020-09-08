@@ -6,13 +6,14 @@ import axios from "axios";
 import { createPost } from '../../API-Calls/Data-provider'
 import { FiImage } from "react-icons/fi";
 import { useToasts } from 'react-toast-notifications'
-
+import {successMessage, errorMessage} from '../../method/common'
 
 function PostModal(props) {
   const { addToast } = useToasts()
   const handleClose = () => {
     props.closeModal(false);
   };
+
 
   const { state, dispatch } = useContext(UserContext)
   const [body, setBody] = useState("");
@@ -29,7 +30,7 @@ function PostModal(props) {
     let imageUrl = await axios.post(
       `https://api.cloudinary.com/v1_1/amirsohel/image/upload`, data)
       .catch(error => {
-      addToast('Upload a image', { appearance: 'error' })
+      addToast('Upload a image', errorMessage())
         setProcessing(false)
       })
     if (imageUrl)
@@ -45,15 +46,14 @@ function PostModal(props) {
 
 
   async function submitPost() {
-
     setProcessing(true);
     const newPost = await createPost(body, imageUrl);
     if (newPost.error) {
-      addToast(newPost.error, { appearance: 'error' })
+      addToast(newPost.error, errorMessage())
       setProcessing(false);
     }
     else {
-      addToast('Post published', { appearance: 'success' })
+      addToast('Post published', successMessage())
       setProcessing(false);
       window.location.href = '/'
     }
