@@ -5,6 +5,9 @@ import Sidebar from './Sidebar'
 import { Loader } from '../../method/common'
 import { UserContext } from '../../App'
 import { AiOutlineDelete } from "react-icons/ai";
+
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiTwotoneHeart } from "react-icons/ai";
 import { deletePost, commentPost, getPosts, likePost, unlikePost } from '../../API-Calls/Data-provider'
 
 
@@ -76,9 +79,9 @@ function Home() {
                   </div>
                   <div className="post-content text-left p-3">
                     {post.likes && state._id && post.likes.includes(state._id) ?
-                      <div className="heart like is-active" onClick={() => unlike(post._id)}></div>
+                      <AiTwotoneHeart className="liked_post" onClick={() => unlike(post._id)} />
                       :
-                      <div className="heart unlike" onClick={() => like(post._id)}></div>
+                      <AiOutlineHeart onClick={() => like(post._id)} />
                     }
                     <p className="mb-0 text-15">{post.likes.length} likes</p>
                     <p className="sen-serif text-13 mb-3">{post.body}</p>

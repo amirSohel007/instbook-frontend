@@ -14,7 +14,7 @@ ReactDOM.render(
 		</div>
 		<div className="mobile-wrapper">
 			<div className="center-content">
-				<h3 className="logo">Instabook</h3>
+				<h3 className="logo">Instagram</h3>
 				<p>Please open in desktop version to access the application.</p>
 			</div>
 		</div>

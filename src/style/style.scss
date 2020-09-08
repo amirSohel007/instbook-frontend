@@ -189,10 +189,7 @@ header {
 		width: 36px;
 	}
 }
-.fa-heart.fill {
-	color: #f52323 !important;
-	animation:fa-beat 5s linear 1;
-}
+
 
 @keyframes fa-beat {
 	0% {
@@ -286,23 +283,14 @@ button.nav-link {
 .spinner-border-sm {border-width: 2px; border-color: #adadad;}
 .spinner-border {border-right-color: transparent !important;}
 
-// TWITTER HEART
-.heart {
-	width: 100px;
-    height: 80px;
-    background: url('https://cssanimation.rocks/images/posts/steps/heart.png') no-repeat;
-    background-position: 0 0;
-    cursor: pointer;
-    transition: background-position 1s steps(28);
-    transition-duration: 0s;
-    position: relative;
-    transform: translate(-24px, -20px);
-	
-	&.is-active {
-	  transition-duration: 1s;
-	  background-position: -2800px 0;
-	}
-  }
+.post-content svg {
+    height: 46px;
+	width: 29px;
+	cursor: pointer;
+}
+.liked_post {
+    color: #f71818;
+}
 
   .action {
     position: absolute;

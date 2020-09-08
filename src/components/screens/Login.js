@@ -48,7 +48,7 @@ const Login = () => {
           <div className="bg-white form-wrapper mt-5 p-4 border-radius-4">
             <form>
               <div className="form-group text-center">
-              <h5 className="logo">InstaBook</h5>
+              <h5 className="logo">Instagram</h5>
               </div>
               <div className="form-group">
                 <label htmlFor="">Email/Id</label>
