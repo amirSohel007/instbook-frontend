@@ -1,12 +1,12 @@
-import instance from '../../src/axios-instance'
+import instance from "../../src/axios-instance";
 
-//login 
+//login
 export const login = async (e, email, password) => {
   e.preventDefault();
   const data = { email, password };
   let res = await instance.post(`signin`, data);
-  return res.data
-}
+  return res.data;
+};
 
 //Register
 export const register = async (e, name, email, password) => {
@@ -18,89 +18,135 @@ export const register = async (e, name, email, password) => {
 
 //Register
 export const findUser = async (key) => {
-  let body = {key:key}
-  let res = await instance.post(`search`, body, );
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  let body = { key: key };
+  let res = await instance.post(`search`, body, { headers });
   return res.data;
 };
 
 //suggessionUsers Users
 export const suggessionUsers = async () => {
-  const users = await instance.get(`allusers`, )
-  return users.data
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const users = await instance.get(`allusers`, { headers });
+  return users.data;
 };
 
-//User profile 
+//User profile
 export const getProfile = async (userId) => {
-  const user = await instance.get(`user/${userId}`, )
-  return user.data
-}
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const user = await instance.get(`user/${userId}`, { headers });
+  return user.data;
+};
 
 //get all feeds posts
 export const getPosts = async () => {
-  let res = await instance.get(`posts`);
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  let res = await instance.get(`posts`, { headers });
   return res.data;
 };
 
 export const createPost = async (body, imageUrl) => {
-  const post = {body, imageUrl };
-  let res = await instance.post(`addpost`, post, )
-  .catch(error => {
-    console.log(error)
-  })
-  return res.data
-}
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const post = { body, imageUrl };
+  let res = await instance.post(`addpost`, post, { headers }).catch((error) => {
+    console.log(error);
+  });
+  return res.data;
+};
 
 //Delete post
 export const deletePost = async (postId) => {
-  const deleteItem = await instance.delete(`delete/${postId}`, )
-  if(deleteItem.data.status){
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const deleteItem = await instance.delete(`delete/${postId}`, { headers });
+  if (deleteItem.data.status) {
     // toast.success("Post has been deleted !", {position: toast.POSITION.BOTTOM_CENTER});
-    return deleteItem.data
+    return deleteItem.data;
   }
   // else
   // toast.danger("Something went wrong !", {position: toast.POSITION.BOTTOM_CENTER});
-}
+};
 
 //comment on post
 export const commentPost = async (e, id) => {
-  e.preventDefault()
-  const data = {text:e.target[0].value, postId:id}
-  e.target[0].value = ''
-  const comment = await instance.put(`comment`, data, )
-  document.querySelectorAll('.comment').value = ''
-  return comment.data
-}
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  e.preventDefault();
+  const data = { text: e.target[0].value, postId: id };
+  e.target[0].value = "";
+  const comment = await instance.put(`comment`, data, { headers });
+  document.querySelectorAll(".comment").value = "";
+  return comment.data;
+};
 
 //like a post
-export const likePost = async (id) =>{
-  const likedPost = await instance.put(`like`, {postId:id}, )
-  return likedPost.data
-}
+export const likePost = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const likedPost = await instance.put(`like`, { postId: id }, { headers });
+  return likedPost.data;
+};
 
-//unlike post 
-export const unlikePost= async (id) =>{
-const unlikedPost = await instance.put(`unlike`, {postId:id}, )
- return unlikedPost.data
-}
+//unlike post
+export const unlikePost = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const unlikedPost = await instance.put(`unlike`, { postId: id }, { headers });
+  return unlikedPost.data;
+};
 
 //follow user
 export const followUser = async (id) => {
-  const data = {followId:id}
-    const check = await instance.put(`follow`, data, )
-    return check.data
-}
-
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const data = { followId: id };
+  const check = await instance.put(`follow`, data, { headers });
+  return check.data;
+};
 
 //unfollow user
 export const unfollowUser = async (id) => {
-    const data = {unfollowId:id}
-    const check = await instance.put(`unfollow`, data, )
-    return check.data
-}
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const data = { unfollowId: id };
+  const check = await instance.put(`unfollow`, data, { headers });
+  return check.data;
+};
 
 //change profile
 export const updateProfilePicture = async (profileImg) => {
-  const data = {profileImg:profileImg}
-  const newImageData = await instance.put(`update-image`, data, )
-  return newImageData
-}
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  };
+  const data = { profileImg: profileImg };
+  const newImageData = await instance.put(`update-image`, data, { headers });
+  return newImageData;
+};

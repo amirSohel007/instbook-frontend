@@ -42,7 +42,7 @@ const Menu = () => {
       <Layout>
         <nav className="navbar navbar-expand-lg p-0">
           <Link className="navbar-brand" to={state ? "/" : "/signin"}>
-            Instagram
+            <img src="../../img/official.png"/>
           </Link>
 
           {state && state._id &&
